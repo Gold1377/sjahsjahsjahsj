@@ -2,6 +2,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout,QHBoxLayout, QPushButton, QLabel, QLineEdit,QListWidget,QMessageBox
 import json
+import SecWindow
 #declaring constants
 win_width, win_height = 200, 300
 win_x, win_y = 200, 200
@@ -116,10 +117,13 @@ class MainWindow(QWidget):
                 jsonsave=json.dumps(self.dict)
                 outfile.write(jsonsave)
     def deleteb(self):
-        for key in self.dict.keys():
-            if self.edit.isItemSelected(key):
-                del self.dict[key]
-                self.addlist()
+        items = self.edit.selectedItems()
+        for item in items:
+            question = item.text()
+            print(f'Removing {question}')
+            del self.dict[question]
+            self.addlist()
+
         # listItems=list(self.edit.selectedItems())
         # print(listItems)
         # if listItems: 
