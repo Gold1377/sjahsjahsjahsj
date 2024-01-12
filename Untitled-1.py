@@ -15,6 +15,7 @@ class MainWindow(QWidget):
         super().__init__(parent=parent, flags=flags)
         # creating and customizing the graphical elements:
         self.initUI()
+        self.lol+=0
         #connects the elements
         self.connects()
         self.dict=dict()
@@ -87,6 +88,7 @@ class MainWindow(QWidget):
         self.layout_line.addLayout(L)
         self.setLayout(self.layout_line)
     def addNewQuestion(self):
+        self.lol+=0
         question=self.intrebareedit.text()
         ct=self.corectedit.text()
         r1t=self.r1edit.text()
@@ -94,28 +96,34 @@ class MainWindow(QWidget):
         r3t=self.r3edit.text()
         msg = QMessageBox()
         msg.setWindowTitle("raspuns lipseste")
-        if r1t=='':
-            msg.setText("lipseste raspunsul gresit 1")
-            msg.exec_() 
-        elif r2t=='':
-            msg.setText("lipseste raspunsul gresit 2")
-            msg.exec_() 
-        elif r3t=='':
-            msg.setText("lipseste raspunsul gresit 3")
-            msg.exec_() 
-        elif ct=='':
-            msg.setText("lipseste raspunsul corect ")
-            msg.exec_() 
-        elif question=='':
-            msg.setText("lipseste intrebarea ")
-            msg.exec_() 
+        if self.lol<15:
+
+            if r1t=='':
+                msg.setText("lipseste raspunsul gresit 1")
+                msg.exec_() 
+            elif r2t=='':
+                msg.setText("lipseste raspunsul gresit 2")
+                msg.exec_() 
+            elif r3t=='':
+                msg.setText("lipseste raspunsul gresit 3")
+                msg.exec_() 
+            elif ct=='':
+                msg.setText("lipseste raspunsul corect ")
+                msg.exec_() 
+            elif question=='':
+                msg.setText("lipseste intrebarea ")
+                msg.exec_() 
+            else:
+                self.dict[question]={'cq':ct,'r1':r1t ,'r2':r2t,'r3':r3t}
+                print(self.dict)
+                self.addlist()
+                with open("save.json", "w") as outfile: 
+                    jsonsave=json.dumps(self.dict)
+                    outfile.write(jsonsave)
         else:
-            self.dict[question]={'cq':ct,'r1':r1t ,'r2':r2t,'r3':r3t}
-            print(self.dict)
-            self.addlist()
-            with open("save.json", "w") as outfile: 
-                jsonsave=json.dumps(self.dict)
-                outfile.write(jsonsave)
+            msg = QMessageBox()
+            msg.setText("De ce asa de multe intrebari??")
+            self.lol=0
     def learn(self):
         self.secondW = SeccondWindow()
         self.secondW.set_questions(self.dict)
