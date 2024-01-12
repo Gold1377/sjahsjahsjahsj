@@ -2,7 +2,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout,QHBoxLayout, QPushButton, QLabel, QLineEdit,QListWidget,QMessageBox
 import json
-import SecWindow
+from secwindow import SeccondWindow
 #declaring constants
 win_width, win_height = 200, 300
 win_x, win_y = 200, 200
@@ -116,6 +116,10 @@ class MainWindow(QWidget):
             with open("save.json", "w") as outfile: 
                 jsonsave=json.dumps(self.dict)
                 outfile.write(jsonsave)
+    def learn(self):
+        self.secondW = SeccondWindow()
+        self.secondW.set_questions(self.dict)
+        self.secondW.show()
     def deleteb(self):
         items = self.edit.selectedItems()
         for item in items:
@@ -145,9 +149,10 @@ class MainWindow(QWidget):
     def connects(self):
         self.intrnou.clicked.connect(self.addNewQuestion)
         self.sterintr.clicked.connect(self.deleteb)
+        self.exers.clicked.connect(self.learn)
         # Nu need for the buttons to do something in this exercise/nothing to add here 
         pass
- 
+        
     ''' determines how the window will look (text, size, location) '''
     def set_appear(self):
         self.setWindowTitle(txt_title)
