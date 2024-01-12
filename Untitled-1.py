@@ -15,7 +15,7 @@ class MainWindow(QWidget):
         super().__init__(parent=parent, flags=flags)
         # creating and customizing the graphical elements:
         self.initUI()
-        self.lol+=0
+        self.lol=0
         #connects the elements
         self.connects()
         self.dict=dict()
@@ -88,7 +88,7 @@ class MainWindow(QWidget):
         self.layout_line.addLayout(L)
         self.setLayout(self.layout_line)
     def addNewQuestion(self):
-        self.lol+=0
+        self.lol+=1
         question=self.intrebareedit.text()
         ct=self.corectedit.text()
         r1t=self.r1edit.text()
@@ -97,7 +97,6 @@ class MainWindow(QWidget):
         msg = QMessageBox()
         msg.setWindowTitle("raspuns lipseste")
         if self.lol<15:
-
             if r1t=='':
                 msg.setText("lipseste raspunsul gresit 1")
                 msg.exec_() 
@@ -121,7 +120,7 @@ class MainWindow(QWidget):
                     jsonsave=json.dumps(self.dict)
                     outfile.write(jsonsave)
         else:
-            msg = QMessageBox()
+            
             msg.setText("De ce asa de multe intrebari??")
             self.lol=0
     def learn(self):
