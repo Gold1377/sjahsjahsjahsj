@@ -1,0 +1,38 @@
+from pygame import *
+from olololo import Character 
+from zreo import duno
+
+window=display.set_mode((700, 500))
+display.set_caption("lol")
+#background=transform.scale(image.load("C:\\Users\\zanfi\\Desktop\\proiect\\ok.png"),(700,500))
+p1=Character('C:\\Users\\zanfi\\Desktop\\proiect\\basket2.png', 100, 100, 2)
+d1=duno('C:\\Users\\zanfi\\Desktop\\proiect\\heart.png', 100, 50, 1)
+d2=duno('C:\\Users\\zanfi\\Desktop\\proiect\\money.png', 100, 50, 1)
+game = True 
+money=0
+heart=0
+while game:
+   font.init()
+   my_font = font.SysFont('basket2.png', 32)
+   font_color = (100, 200, 150)
+   text = my_font.render(str(money), True, font_color)
+   text2 = my_font.render(str(heart), True, font_color)
+   #window.blit(background,(700,500))
+   for e in event.get():
+        if e.type == QUIT:
+           game = False
+   p1.update(window)
+   d1.update(window)
+   d2.update(window)
+   d1.move_vertical()
+   d2.move_vertical()
+   if p1.collide(d1):
+       print("Colision detected")
+   if p1.collide(d2):
+       print("Colision detected")
+   p1.handle_events()
+   window.blit(text, (500,0))
+
+ 
+display.update()
+ 
